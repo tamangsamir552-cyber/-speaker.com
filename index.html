@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini E‑Commerce — Black Lamborghini Speaker</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#ff6b00;--muted:#98a2b3;--glass: rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071024 0%,#081226 100%);color:#eef2f7;min-height:100vh}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:46px;height:46px;border-radius:8px;background:linear-gradient(135deg,#111827,#0b1220);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px;display:grid;grid-template-columns:1fr 360px;gap:28px}
+    .product{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+    .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
+    .product-image{background:var(--glass);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center}
+    .product-image img{max-width:100%;border-radius:8px;display:block}
+    .product-info h2{margin:0 0 8px 0;font-size:22px}
+    .price{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:8px}
+    .desc{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:12px}
+    .buy-row{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;color:#061018;font-weight:700;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbeafe}
+    .order-form{margin-top:18px;background:rgba(255,255,255,0.02);padding:16px;border-radius:10px}
+    .order-form input, .order-form textarea{width:100%;padding:8px;border-radius:6px;border:none;margin-bottom:10px}
+    .order-form label{font-size:14px;color:var(--muted)}
+    .cart{background:linear-gradient(180deg,#081226, #06101a);border-radius:12px;padding:16px;height:fit-content;position:sticky;top:20px}
+    .cart h3{margin:0 0 12px 0}
+    footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+    @media (max-width:930px){.container{grid-template-columns:1fr}} 
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">EC</div>
+      <div>
+        <h1>MiniShop</h1>
+        <div class="small">Hand‑built demo store • Prices in Nepali Rupees (Rs)</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <div class="product">
+        <div class="product-grid">
+          <div class="product-image">
+            <img id="main-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Black Lamborghini Speaker">
+          </div>
+          <div class="product-info">
+            <h2 id="product-name">Black Lamborghini — Speaker</h2>
+            <div class="price" id="product-price">Rs 1,500</div>
+            <div class="desc">A stylish, high‑quality Lamborghini‑themed Bluetooth Speaker. Experience luxury sound in a compact design.</div>
+            <div class="buy-row">
+              <button class="btn" onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'});">Order Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-form" id="order-form">
+        <h3>Place Your Order</h3>
+        <form id="realOrderForm" onsubmit="submitOrder(event)">
+          <label>Full Name</label>
+          <input type="text" id="name" required placeholder="Enter your name" />
+
+          <label>Phone Number</label>
+          <input type="tel" id="phone" required placeholder="98XXXXXXXX" pattern="[0-9]{10}" />
+
+          <label>Delivery Address</label>
+          <textarea id="address" required placeholder="Your full address"></textarea>
+
+          <label>Quantity</label>
+          <input type="number" id="quantity" value="1" min="1" />
+
+          <button type="submit" class="btn" style="width:100%;margin-top:10px">Confirm Order</button>
+        </form>
+        <div id="order-confirmation" style="display:none;margin-top:12px;color:lightgreen;font-weight:600"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 MiniShop • Demo only — orders are simulated for testing purpose.
+  </footer>
+
+  <script>
+    function submitOrder(e){
+      e.preventDefault();
+      const name=document.getElementById('name').value;
+      const phone=document.getElementById('phone').value;
+      const address=document.getElementById('address').value;
+      const quantity=document.getElementById('quantity').value;
+      if(!name||!phone||!address){
+        alert('Please fill out all required fields.');
+        return;
+      }
+      const total=1500*parseInt(quantity);
+      document.getElementById('order-confirmation').style.display='block';
+      document.getElementById('order-confirmation').innerText=`Thank you, ${name}! Your order for ${quantity} Black Lamborghini Speaker(s) has been placed successfully. Total: Rs ${total.toLocaleString('ne-NP')}. We will contact you at ${phone} for confirmation.`;
+      document.getElementById('realOrderForm').reset();
+    }
+  </script>
+</body>
+</html>
